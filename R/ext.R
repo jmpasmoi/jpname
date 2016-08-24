@@ -10,11 +10,13 @@
 #'
 #' @examples
 #'
+#'Below the way you should execute this function
+#'
 #' jpgname("female")
 #' jpgname("male")
 #' jpgname("both")
 #'
-jpgname <- function (gender){
+jpgname <- function (gender,...){
 
   jp <- NULL
 
@@ -30,11 +32,11 @@ jpgname <- function (gender){
 
   x <- jp
 
-  y <- paste("http://www.namespedia.com/details/",x,sep="")
+  y <- paste(websRc()[1],x,sep="")
 
   st <- httr::GET(y)
 
-  if(st$status_code == 200) {
+  if(st$status_code == 200){
 
     y <- xml2::read_html(y)
 
@@ -54,7 +56,28 @@ jpgname <- function (gender){
 
   }
 
-  resp <- list(Name = x, Search = sch)
+
+  y <- paste(websRc()[2],x,sep="")
+
+  st <- httr::GET(y)
+
+  if(st$status_code == 200){
+
+    y <- xml2::read_html(y)
+    y <- rvest::html_nodes(y,"table tr td")
+    y <- rvest::html_text(y)
+
+    ktk <- y[5]
+    hrg <- y[7]
+
+  }else{
+
+    hrg <- "No hiragana found"
+    ktk <- "No katakana found"
+  }
+
+
+  resp <- list(Name = trimws(x), Search = sch, Katakana = gsub("\n","",ktk), Hiragana = gsub("\n","",hrg))
 
   return (resp)
 
