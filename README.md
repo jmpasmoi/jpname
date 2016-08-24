@@ -27,9 +27,14 @@ library(jpname) # for functions
 
 #> jpgname("male")
 #$Name
-#[1] "Yoshisuke"
+#[1] "Shozo"
 
 #$Search
-#[1] "Statistics and meaning of name YoshisukeUsage: 83% firstname, 17% surname.Yoshisuke first name was found 25 times in 6 different countries.Surname Yoshisuke is used at least 5 times in at least 2 countries. (USA,Kenya)Gender of firstname Yoshisuke is 0% feminine and 100% masculine."
+#[1] "Statistics and meaning of name ShozoUsage: 91% firstname, 9% surname.Shozo first name was found 289 times in 16 different countries.Surname Shozo is used at least 27 times in at least 5 countries.Gender of firstname Shozo is 0% feminine and 100% masculine."
 
+#$Katakana
+#[1] "ショゾ"
+
+#$Hiragana
+#[1] "しょぞ"
 ```
