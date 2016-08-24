@@ -4,7 +4,7 @@
 \alias{jpgname}
 \title{Amazing Random Selection About Japanese Given Names}
 \usage{
-jpgname(gender)
+jpgname(gender, ...)
 }
 \arguments{
 \item{gender}{male, female or both}
@@ -16,6 +16,8 @@ Amazing Random Selection About Japanese Given Names
 Function to display a randomly japanese names
 }
 \examples{
+
+Below the way you should execute this function
 
 jpgname("female")
 jpgname("male")
