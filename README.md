@@ -38,3 +38,8 @@ library(jpname) # for functions
 #$Hiragana
 #[1] "しょぞ"
 ```
+
+## Licence
+
+GPL (>= 2)
+
