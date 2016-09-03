@@ -16,19 +16,46 @@
 #' jpgname("male")
 #' jpgname("both")
 #'
-jpgname <- function (gender,...){
+jpgname <- function (gender, ..., random = TRUE, ignore.repeat = TRUE, length.min = 4){
 
   jp <- NULL
 
-  if(tolower(gender) == "male" || tolower(gender) == "m" ||
-        tolower(gender) == "boy" || tolower(gender) == "man"){ jp <- jp_male() }
+  if(
+        tolower(gender) == "male" ||
+        tolower(gender) == "m" ||
+        tolower(gender) == "boy" ||
+        tolower(gender) == "man"
+   ){
 
-  else if(tolower(gender) == "female" || tolower(gender) == "f" ||
-     tolower(gender) == "girl" || tolower(gender) == "woman"){ jp <- jp_female() }
+          jp <- jp_male()
 
-  else if(tolower(gender) == "both" || tolower(gender) == "b" ||
-     tolower(gender) == "double" || tolower(gender) == "couple"){ jp <- jp_both() }
-  else{stop("The entry does not correspond to the gender. Please use male, female or both")}
+
+    }else if(
+
+      tolower(gender) == "female" ||
+      tolower(gender) == "f" ||
+      tolower(gender) == "girl" ||
+      tolower(gender) == "woman"
+    ){
+
+         jp <- jp_female()
+
+    }else if(
+
+      tolower(gender) == "both" ||
+      tolower(gender) == "b" ||
+      tolower(gender) == "double" ||
+      tolower(gender) == "couple"
+    ){
+
+      jp <- jp_both()
+
+
+    }else{
+
+      stop("The entry does not correspond to the gender. Please use male, female or both")
+
+    }
 
   x <- jp
 
