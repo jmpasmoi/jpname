@@ -4,7 +4,7 @@
 \alias{jpgname}
 \title{Amazing Random Selection About Japanese Given Names}
 \usage{
-jpgname(gender, ...)
+jpgname(gender, ..., random = TRUE, ignore.repeat = TRUE, length.min = 4)
 }
 \arguments{
 \item{gender}{male, female or both}
