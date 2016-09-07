@@ -49,7 +49,7 @@ jpgname <- function (gender, ..., random = TRUE, name.length = 4){
       if(count == ex){ break }else{ next}
     }
 
-  }else{ warning("The entry does not correspond to the gender. Please type either male, female or both")}
+  }else{ stop("The entry does not correspond to the gender. Please type either male, female or both")}
 
   x <- ch
 
