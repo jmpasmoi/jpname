@@ -1,6 +1,8 @@
 #' Amazing Random Selection About Japanese Given Names
 #'
-#'@param gender male, female or both
+#' @param gender male, female or both
+#' @param random always true
+#' @param name.length
 #'
 #'@details
 #'
@@ -16,48 +18,40 @@
 #' jpgname("male")
 #' jpgname("both")
 #'
-jpgname <- function (gender, ..., random = TRUE, ignore.repeat = TRUE, length.min = 4){
-
-  jp <- NULL
-
-  if(
-        tolower(gender) == "male" ||
-        tolower(gender) == "m" ||
-        tolower(gender) == "boy" ||
-        tolower(gender) == "man"
-   ){
-
-          jp <- jp_male()
+jpgname <- function (gender, ..., random = TRUE, name.length = 4){
 
 
-    }else if(
+  f <- formals(jpgname)
 
-      tolower(gender) == "female" ||
-      tolower(gender) == "f" ||
-      tolower(gender) == "girl" ||
-      tolower(gender) == "woman"
-    ){
+  namesize <- names(f)
 
-         jp <- jp_female()
+  nz <- do.call(missing, list(namesize[4]))
 
-    }else if(
+  if(nz == TRUE){ ex <- "abs"}
+  else{
 
-      tolower(gender) == "both" ||
-      tolower(gender) == "b" ||
-      tolower(gender) == "double" ||
-      tolower(gender) == "couple"
-    ){
-
-      jp <- jp_both()
+        if(name.length <= 11 && name.length > 1){ ex <- name.length
+        }else{
+          stop("Unexpected value. Please type positive integer between 2 and 11", call. = TRUE)
+        }
+  }
 
 
-    }else{
+  if(is.atomic(gender) && !is.numeric(gender) && !grepl("[[:digit:]]", gender) && !trimws(gender)==""){
 
-      stop("The entry does not correspond to the gender. Please use male, female or both")
 
+    for(i in 1:1e4){
+
+      ch <- jpNameGenerator(gender)
+
+      count <- nchar(ch)
+
+      if(count == ex){ break }else{ next}
     }
 
-  x <- jp
+  }else{ warning("The entry does not correspond to the gender. Please type either male, female or both")}
+
+  x <- ch
 
   y <- paste(websRc()[1],x,sep="")
 
@@ -83,7 +77,6 @@ jpgname <- function (gender, ..., random = TRUE, ignore.repeat = TRUE, length.mi
 
   }
 
-
   y <- paste(websRc()[2],x,sep="")
 
   st <- httr::GET(y)
@@ -94,18 +87,24 @@ jpgname <- function (gender, ..., random = TRUE, ignore.repeat = TRUE, length.mi
     y <- rvest::html_nodes(y,"table tr td")
     y <- rvest::html_text(y)
 
-    ktk <- y[5]
     hrg <- y[7]
 
   }else{
 
     hrg <- "No hiragana found"
-    ktk <- "No katakana found"
   }
 
-
-  resp <- list(Name = trimws(x), Search = sch, Katakana = gsub("\n","",ktk), Hiragana = gsub("\n","",hrg))
+  resp <- list(Hiragana = gsub("\n","",hrg), Romaji = trimws(x), length = nchar(trimws(x)), Description = sch)
 
   return (resp)
+}
 
+jpNameGenerator <- function(gender){
+
+  if(tolower(gender) %in% c("male","m","boy","man")){ jp <- jp_male()}
+  else if(tolower(gender) %in% c("female","f","girl","woman")){ jp <- jp_female()}
+  else if(tolower(gender) %in% c("both","b","double","couple")){ jp <- jp_both()}
+  else{ stop("The entry does not correspond to the gender. Please use male, female or both")}
+
+  return(jp)
 }
