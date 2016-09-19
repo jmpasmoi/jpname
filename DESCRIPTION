@@ -10,6 +10,7 @@ Depends:
     R (>= 3.1)
 Imports:
     rvest,
+    xml2,
     httr
 Encoding: UTF-8
 LazyData: true
