@@ -11,8 +11,7 @@ Depends:
 Imports:
     rvest,
     xml2,
-    httr
-Suggests:
+    httr,
     selectr
 Encoding: UTF-8
 LazyData: true
